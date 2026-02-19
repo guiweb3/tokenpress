@@ -164,7 +164,7 @@ el.innerHTML=`<div class="hero" onclick="showArticle('${n.slug||n.id}')">
 <div class="hero-excerpt">${(n.resumo_noticia||'').replace(/<[^>]*>/g,'').slice(0,200)}...</div>
 <div class="hero-meta">// ${n.created_at?new Date(n.created_at).toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}):''}</div>
 </div>
-<div class="hero-right"><div class="grid-overlay"></div></div></div>`;
+<div class="hero-right">${n.capa_noticia?`<img src="${n.capa_noticia}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;filter:saturate(.8)">`:''}<div class="grid-overlay"></div></div></div>`;
 }
 
 function buildFilters(){
@@ -182,7 +182,9 @@ document.getElementById('newsGrid').innerHTML=f.slice(start,30).map((n,i)=>{
 const cats=parseTags(n.hashtags).slice(0,2).map(h=>'#'+h).join(' · ');
 const tags=parseTags(n.hashtags).slice(0,3).map(h=>`<span class="tag">${h}</span>`).join('');
 const date=n.created_at?new Date(n.created_at).toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit'}):''
+const img=n.capa_noticia?`<img src="${n.capa_noticia}" style="width:100%;height:160px;object-fit:cover;margin-bottom:1rem;filter:saturate(.8)">`:'';
 return`<div class="news-card" onclick="showArticle('${n.slug||n.id}')">
+${img}
 <div class="num">${String(i+1).padStart(2,'0')}</div>
 <div class="cat">${cats}</div>
 <h3>${n.titulo_noticia}</h3>
@@ -199,7 +201,7 @@ if(!n){const r=await fetch(`${SUPABASE_URL}/rest/v1/noticiasesp?slug=eq.${slug}&
 if(!n)return;
 document.getElementById('artTitle').textContent=n.titulo_noticia;
 document.getElementById('artMeta').innerHTML=`${n.created_at?new Date(n.created_at).toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):''} · ${parseTags(n.hashtags).map(h=>'<span style="color:var(--neon)">#'+h+'</span>').join(' ')}`;
-document.getElementById('artBody').innerHTML=parseMarkdown(n.corpo_noticia||n.resumo_noticia||'');
+const artImg=n.capa_noticia?`<img src="${n.capa_noticia}" style="width:100%;max-height:400px;object-fit:cover;margin-bottom:2rem;filter:saturate(.8)">`:'';document.getElementById('artBody').innerHTML=artImg+parseMarkdown(n.corpo_noticia||n.resumo_noticia||'');
 document.getElementById('mainView').style.display='none';document.getElementById('articleView').style.display='block';
 location.hash='/article/'+slug;window.scrollTo(0,0);
 }
