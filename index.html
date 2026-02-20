@@ -9,7 +9,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--neon:#f72585;--neon2:#7209b7;--neon3:#3a0ca3;--bg:#050505;--surface:#0c0c0c;--surface2:#141414;--text:#e0e0e0;--dim:#555}
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+img{max-width:100%;height:auto}body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 a{color:var(--neon);text-decoration:none}
 ::selection{background:var(--neon);color:#fff}
 
@@ -90,12 +90,28 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
 
 .loader{text-align:center;padding:4rem;font-family:'Space Mono',monospace;font-size:.85rem;color:var(--dim)}
 
-@media(max-width:768px){
-.hero{grid-template-columns:1fr}.hero-right{min-height:150px}
+.hero-right{min-height:150px}
 .hero-title{font-size:1.8rem}
 .news-grid{grid-template-columns:1fr}
 .stats-inner{flex-direction:column}
 .stat{border-right:none;border-bottom:1px solid #1a1a1a}
+}
+
+@media(max-width:768px){
+.header{padding:1rem;flex-wrap:wrap}
+.logo{font-size:1.3rem}
+.nav{display:none}
+.hero{min-height:auto;padding:2rem 1rem}
+.hero h1{font-size:1.6rem;word-break:break-word}
+.grid{grid-template-columns:1fr!important;padding:0 1rem}
+.card{margin:0}
+.sidebar{display:none}
+.footer-cols{grid-template-columns:1fr}
+.article-view{padding:1rem}
+.article-view h1{font-size:1.4rem}
+.article-view img{width:100%;height:auto}
+.filters{overflow-x:auto;flex-wrap:nowrap;padding:0 1rem}
+.marquee{font-size:.7rem}
 }
 </style>
 </head>
